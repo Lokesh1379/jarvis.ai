@@ -1,8 +1,6 @@
-import { useState } from "react";
-
 import "./App.css";
-import Chatbot from "./components/Chatbot";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Home from "./Pages/Home/Home";
 
 function App() {
   const queryClient = new QueryClient();
@@ -10,7 +8,7 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <Chatbot />
+        <Home />
       </QueryClientProvider>
     </>
   );
