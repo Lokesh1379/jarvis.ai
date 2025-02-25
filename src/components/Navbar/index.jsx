@@ -3,7 +3,7 @@ import React from "react";
 const Navbar = () => {
   return (
     <>
-      <div className="flex justify-between place-items-center h-auto bg-slate-50 w-auto px-10">
+      <div className="flex justify-between place-items-center h-auto  w-auto px-10">
         <div>
           <h2 className="text-3xl">Jarvis.ai</h2>
         </div>

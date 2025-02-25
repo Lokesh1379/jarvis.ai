@@ -2,9 +2,9 @@ import React from "react";
 
 const ChatResponse = ({ response }) => {
   const formatText = (text) => {
-    const lines = text.split("\n\n");
+    const lines = text?.split("\n\n");
 
-    return lines.map((line, index) => {
+    return lines?.map((line, index) => {
       if (line.startsWith("```")) {
         return (
           <pre key={index} className="bg-gray-900 text-white ">
