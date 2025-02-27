@@ -1,6 +1,7 @@
 import React from "react";
 
-const ChatResponse = ({ response }) => {
+const ChatResponse = ({ response, sender }) => {
+  console.log(response, sender);
   const formatText = (text) => {
     const lines = text?.split("\n\n");
 
@@ -32,7 +33,7 @@ const ChatResponse = ({ response }) => {
   return (
     <div className="w-11/12 overflow-hidden">
       <h2 className="text-xl "></h2>
-      <div>{formatText(response)}</div>
+      <div>{formatText(response, sender)}</div>
     </div>
   );
 };

@@ -1,17 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage/session";
-import searchSlice from "../Features/searchresponse";
+import searchreducer from "../Features/searchresponse";
+import sessionStorage from "redux-persist/es/storage/session";
 const introPersistConfig = {
-  key: "intro",
+  key: "searchSlice", // ✅ Ensure this matches your reducer name
   storage: sessionStorage,
-  whitelist: ["searchData"],
+  whitelist: ["searchResponse"], // Only persist the necessary field
 };
 
-const persistedSearchReducer = persistReducer(introPersistConfig, searchSlice);
+const persistedSearchReducer = persistReducer(
+  introPersistConfig,
+  searchreducer
+);
 const store = configureStore({
   reducer: {
-    searchData: persistedSearchReducer,
+    searchResponse: persistedSearchReducer,
   },
 });
 
