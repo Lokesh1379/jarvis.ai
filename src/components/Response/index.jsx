@@ -13,7 +13,7 @@ import ChatResponse from "../ChatResponse";
 
 const AiResponse = () => {
   const { searchQuery, isSearching, searchResponse } = useSelector(
-    (state) => state.searchData
+    (state) => state.searchResponse
   );
   const dispatch = useDispatch();
 
@@ -30,33 +30,41 @@ const AiResponse = () => {
   const askJarvis = async () => {
     if (!searchQuery.trim()) return;
     dispatch(setIsSearching(true));
-    setSearchResponse([
-      ...searchResponse,
-      { text: searchQuery, sender: "user" },
-    ]);
+
+    const userQuestion = { text: searchQuery, sender: "user" };
+
+    // Append the user question to the searchResponse
+    dispatch(setSearchResponse([...searchResponse, userQuestion]));
+
     try {
       const genAi = new GoogleGenerativeAI(
         "AIzaSyCbiL-IicQINoyxHVq2hA2J3s1wkqf89U4"
-      ); // Use .env for security
+      ); // Move API key to .env for security
+
       const model = genAi.getGenerativeModel({ model: "gemini-1.5-pro" });
 
       const result = await model.generateContent(searchQuery);
       const botMessage = { text: result.response.text(), sender: "bot" };
-      dispatch(setSearchResponse([...searchResponse, botMessage]));
-      dispatch(setIsSearching(false));
-      dispatch(setSearchQuery(""));
+
+      // Ensure we include the previous `searchResponse` + `userQuestion`
+      dispatch(
+        setSearchResponse([...searchResponse, userQuestion, botMessage])
+      );
     } catch (error) {
       console.error("Error fetching AI response:", error);
-      dispatch(setIsSearching(false));
       dispatch(
         setSearchResponse([
           ...searchResponse,
+          userQuestion, // Keep the user's question
           { text: "Something went wrong. Try again!", sender: "bot" },
         ])
       );
+    } finally {
+      dispatch(setIsSearching(false));
+      dispatch(setSearchQuery(""));
     }
   };
-  console.log(searchResponse);
+
   return (
     <div className="grid grid-rows-[auto_1fr] h-full  justify-center ">
       <div

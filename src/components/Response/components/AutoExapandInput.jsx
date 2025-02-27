@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchQuery } from "../../../Features/searchresponse";
 const AutoExpandingInput = () => {
-  const { searchQuery } = useSelector((state) => state.searchData);
+  const { searchQuery } = useSelector((state) => state.searchResponse);
   const dispatch = useDispatch();
   const textAreaRef = useRef(null);
 

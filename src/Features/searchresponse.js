@@ -8,6 +8,7 @@ const initialState = {
 };
 
 const searchSlice = createSlice({
+  // ✅ Fix: Renamed `searchreducer` to `searchSlice`
   name: "searchSlice",
   initialState,
   reducers: {
@@ -25,4 +26,4 @@ const searchSlice = createSlice({
 
 export const { setIsSearching, setSearchQuery, setSearchResponse } =
   searchSlice.actions;
-export default searchSlice.reducer;
+export default searchSlice.reducer; // ✅ Fix: Correct export
